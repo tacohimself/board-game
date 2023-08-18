@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+// import 'package:flutter/services.dart';
 
 enum TileState { covered, blown, open, flagged, revealed }
 
@@ -10,6 +11,10 @@ class BoardGameApp extends StatelessWidget {
   // This widget is the root of our application.
   @override
   Widget build(BuildContext context) {
+    //   SystemChrome.setPreferredOrientations([
+    //     DeviceOrientation.portraitUp,
+    //     DeviceOrientation.portraitDown,
+    //   ]);
     return const MaterialApp(
       // Application name
       title: 'Board Game',
@@ -30,6 +35,9 @@ class BoardState extends State<Board> {
   final int rows = 9;
   final int cols = 9;
   final int numOfMines = 11; // TODO: Minesweeper specific
+  final double gridWidth = 90 / 100; // Grid width is 90% of screen width
+  final double tileMargin =
+      1 / 100; // Margin between the tiles is 1% of screen width
 
   late List<List<TileState>> uiState;
 
@@ -46,6 +54,10 @@ class BoardState extends State<Board> {
   }
 
   Widget buildBoard() {
+    double screenWidth = MediaQuery.of(context).size.width;
+    double containerSize =
+        (screenWidth * gridWidth - (screenWidth * tileMargin * 10 / 2)) / cols;
+
     List<Row> boardRow = <Row>[];
     for (int i = 0; i < rows; i++) {
       List<Widget> rowChildren = <Widget>[];
@@ -55,9 +67,9 @@ class BoardState extends State<Board> {
           rowChildren.add(GestureDetector(
             child: Listener(
               child: Container(
-                margin: const EdgeInsets.all(1.0),
-                height: 20.0,
-                width: 20.0,
+                margin: EdgeInsets.all(screenWidth * tileMargin / 2),
+                height: containerSize,
+                width: containerSize,
                 color: Colors.grey,
               ),
             ),
@@ -72,7 +84,7 @@ class BoardState extends State<Board> {
     }
     return Container(
       color: Colors.grey[700],
-      padding: const EdgeInsets.all(10.0),
+      padding: const EdgeInsets.only(top: 40.0),
       child: Column(
         children: boardRow,
       ),
