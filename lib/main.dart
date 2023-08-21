@@ -57,6 +57,7 @@ class BoardState extends State<Board> {
     double screenWidth = MediaQuery.of(context).size.width;
     double containerSize =
         (screenWidth * gridWidth - (screenWidth * tileMargin * 10 / 2)) / cols;
+    double gridContainerInset = screenWidth * ((1.0 - gridWidth) / 2);
 
     List<Row> boardRow = <Row>[];
     for (int i = 0; i < rows; i++) {
@@ -84,7 +85,8 @@ class BoardState extends State<Board> {
     }
     return Container(
       color: Colors.grey[700],
-      padding: const EdgeInsets.only(top: 10.0),
+      padding:
+          EdgeInsets.only(top: gridContainerInset, bottom: gridContainerInset),
       child: Column(
         children: boardRow,
       ),
@@ -102,22 +104,22 @@ class BoardState extends State<Board> {
           Container(
             // Just an empty container for now
             color: Colors.blueGrey,
-            height: 100,
+            height: 60,
+          ),
+          Container(
+            color: Colors.grey[50],
+            child: Center(
+              child: buildBoard(),
+            ),
           ),
           Expanded(
             // Expands the buildBoard container to all available space
             child: Container(
-              color: Colors.grey[50],
-              child: Center(
-                child: buildBoard(),
-              ),
+              // Just an empty container for now
+              color: Colors.blueGrey,
+              height: 50,
             ),
-          ),
-          Container(
-            // Just an empty container for now
-            color: Colors.blueGrey,
-            height: 50,
-          ),
+          )
         ]));
   }
 }
