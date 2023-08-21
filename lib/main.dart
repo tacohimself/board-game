@@ -94,15 +94,30 @@ class BoardState extends State<Board> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('Board game'),
-      ),
-      body: Container(
-        color: Colors.grey[50],
-        child: Center(
-          child: buildBoard(),
+        appBar: AppBar(
+          title: const Text('Board game'),
+          backgroundColor: Colors.black,
         ),
-      ),
-    );
+        body: Column(children: <Widget>[
+          Container(
+            // Just an empty container for now
+            color: Colors.blueGrey,
+            height: 100,
+          ),
+          Expanded(
+            // Expands the buildBoard container to all available space
+            child: Container(
+              color: Colors.grey[50],
+              child: Center(
+                child: buildBoard(),
+              ),
+            ),
+          ),
+          Container(
+            // Just an empty container for now
+            color: Colors.blueGrey,
+            height: 50,
+          ),
+        ]));
   }
 }
