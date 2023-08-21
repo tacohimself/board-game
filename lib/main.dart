@@ -84,7 +84,7 @@ class BoardState extends State<Board> {
     }
     return Container(
       color: Colors.grey[700],
-      padding: const EdgeInsets.only(top: 40.0),
+      padding: const EdgeInsets.only(top: 10.0),
       child: Column(
         children: boardRow,
       ),
